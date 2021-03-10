@@ -1,1 +1,1 @@
-web: gunicorn medical_store.wsgi --log-file -
+web: gunicorn khalidblog.wsgi --log-file -

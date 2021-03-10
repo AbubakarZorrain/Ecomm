@@ -25,7 +25,7 @@ SECRET_KEY = 'm#6))tf77#f0cq-al5bn)yqnkoydc-m2a-1s0e((i73%3#gsd$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://zorrain-confessions.herokuapp.com']
+ALLOWED_HOSTS = ['zorrain-confessions.herokuapp.com']
 
 
 # Application definition

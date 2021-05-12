@@ -6,8 +6,10 @@ from django.urls import re_path
 
 urlpatterns = [
 
-path('',views.index, name="index"),
-path('full_detail/<int:id>/',views.post_detail),
-path('full_detail/<int:id>/<int:pid>/',views.reply),
+path('',views.navbar, name="index"),
+path('home/',views.navbar, name="index"),
+path('accounts/login/',views.signin,name="login"),
+    path('logout',views.logout_view),
+
 
 ]

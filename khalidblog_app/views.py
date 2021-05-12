@@ -1,35 +1,32 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from .models import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
-def index(request):
+@login_required
+def navbar(request):
     post = Post.objects.all()
     context = {'post':post}
-    return render(request,'khalidblog_app/index.html',context)
+    return render(request,'zblogapp/dashboard.html',context)
 
-def post_detail(request,id):
-    post = Post.objects.all().filter(id=id)
-    post1 =Post.objects.get(id=id)
-    comment = CommentReply.objects.all().filter(post=id)
-    post2 = Post.objects.all().order_by('-id')[:3]
+def signin(request):
     if request.method == 'POST':
-        comments = request.POST.get('comment')
-        CommentReply.objects.create(
-                post=post1, detail=comments, author = request.user)
-    context = {'post': post, 'comment1': comment,'post1':post1,'post2':post2}
-    return render(request,'khalidblog_app/full_detail.html',context)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-def reply(request,id,pid):
-    post1 = Post.objects.get(id=id)
-    comment = CommentReply.objects.get(id=pid)
-    comment1 = CommentReply.objects.all().filter(post=id)
-    post2 = Post.objects.all().order_by('-id')[:3]
-    context = {'comment': comment,'comment1':comment1, 'post1': post1,'post2':post2}
-    if request.method == 'POST':
-        comments = request.POST.get('comment')
-        CommentReply.objects.create(
-            post=post1, detail=comments,parent=comment, author=request.user)
-        return render(request, 'khalidblog_app/full_detail.html', context)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.info(request, 'Login Sucessful')
+            return redirect('/home/')
+        else:
+            messages.info(request, 'Username or Password Is Invalid.')
 
-    return render(request,'khalidblog_app/reply.html',context)
+    return render(request, 'zblogapp/login.html')
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect( '/home/')

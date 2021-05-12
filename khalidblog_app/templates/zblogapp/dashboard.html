@@ -1,0 +1,23 @@
+{% extends 'zblogapp/navbar.html' %}
+{% block content %}
+
+
+{% for Post in post %}
+
+
+<div class="eltd-blog-gallery-item" >
+{% if Post.image.url is not null %}
+                        <a href="{{Post.image.url}}" target="_blank">
+    <div class="polaroid">
+  <img class="img" src="{{ Post.image.url }}" alt="{{Post.author}}"> </a>{%endif%}
+  <div class="container">
+  <p>{{Post.title}}</p>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}

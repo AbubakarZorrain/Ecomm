@@ -1,0 +1,32 @@
+{% extends 'zblogapp/navbar.html' %}
+{% block content %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+    </div>
+<form  class="form-signin" method="POST">
+    {% csrf_token %}
+
+	  {% for message in messages %}
+                                    <p id="messages">{{message}}</p>
+                                    {% endfor %}
+
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+         <button type="submit" class="btn btn-primary" >Sign In</button>
+
+
+</form>
+
+       <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
